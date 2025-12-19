@@ -1,1 +1,34 @@
+# --- JAVA & MAVEN ---
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
 
+# --- IDEs (VS Code, IntelliJ, Eclipse) ---
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# --- LOGS & TEMPORARY FILES ---
+*.log
+/run/
+temp/
+
+# --- OPERATING SYSTEM ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- SPRING BOOT SPECIFIC ---
+.mvn/wrapper/maven-wrapper.jar
+/help.md
