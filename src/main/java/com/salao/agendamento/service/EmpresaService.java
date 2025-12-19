@@ -4,6 +4,7 @@ import com.salao.agendamento.model.Empresa;
 import com.salao.agendamento.repository.EmpresaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class EmpresaService {
@@ -13,5 +14,9 @@ public class EmpresaService {
 
     public Empresa salvar(Empresa empresa) {
         return repository.save(empresa);
+    }
+
+    public List<Empresa> listarTodos() {
+        return repository.findAll();
     }
 }
