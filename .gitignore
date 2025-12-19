@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # --- JAVA & MAVEN ---
 target/
 *.class
@@ -32,3 +33,38 @@ desktop.ini
 # --- SPRING BOOT SPECIFIC ---
 .mvn/wrapper/maven-wrapper.jar
 /help.md
+=======
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+>>>>>>> 9e54196 (feat: estrutura inicial do projeto e entidade Empresa)
