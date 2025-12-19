@@ -9,6 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/agendamentos")
 public class AgendamentoController {
+
     @Autowired
     private AgendamentoService service;
 
@@ -18,7 +19,7 @@ public class AgendamentoController {
     }
 
     @PostMapping
-    public Agendamento criar(@RequestBody Agendamento agendamento) {
+    public Agendamento cadastrar(@RequestBody Agendamento agendamento) {
         return service.salvar(agendamento);
     }
-} 
+}
