@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -16,20 +15,19 @@ public class AgendamentoService {
     private AgendamentoRepository repository;
 
     public Agendamento salvar(Agendamento agendamento) {
-    
-    if (agendamento.getCliente() == null || agendamento.getCliente().getId() == null) {
-        throw new RuntimeException("Não é possível agendar: Cliente não informado ou inválido.");
-    }
+        if (agendamento.getCliente() == null || agendamento.getCliente().getId() == null) {
+            throw new RuntimeException("Não é possível agendar: Cliente não informado ou inválido.");
+        }
 
-    if (agendamento.getServico() == null || agendamento.getServico().getId() == null) {
-        throw new RuntimeException("Não é possível agendar: Serviço não selecionado.");
-    }
+        if (agendamento.getServico() == null || agendamento.getServico().getId() == null) {
+            throw new RuntimeException("Não é possível agendar: Serviço não selecionado.");
+        }
 
-    if (agendamento.getDataHora() == null || agendamento.getDataHora().isBefore(LocalDateTime.now())) {
-        throw new RuntimeException("Erro: A data do agendamento não pode ser no passado!");
-    }
+        if (agendamento.getDataHora() == null || agendamento.getDataHora().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Erro: A data do agendamento não pode ser no passado!");
+        }
 
-    return repository.save(agendamento);
+        return repository.save(agendamento);
     }
 
     public List<Agendamento> listarTodos() {
@@ -38,5 +36,9 @@ public class AgendamentoService {
     
     public void cancelar(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<Agendamento> buscarPorCliente(Long clienteId) {
+        return repository.findByClienteId(clienteId);
     }
 }

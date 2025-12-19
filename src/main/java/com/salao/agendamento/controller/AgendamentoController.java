@@ -22,4 +22,9 @@ public class AgendamentoController {
     public Agendamento cadastrar(@RequestBody Agendamento agendamento) {
         return service.salvar(agendamento);
     }
+
+    @GetMapping("/cliente/{id}")
+    public List<Agendamento> listarPorCliente(@PathVariable Long id) {
+        return service.buscarPorCliente(id);
+    }
 }
