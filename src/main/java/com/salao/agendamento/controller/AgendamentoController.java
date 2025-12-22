@@ -27,4 +27,8 @@ public class AgendamentoController {
     public List<Agendamento> listarPorCliente(@PathVariable Long id) {
         return service.buscarPorCliente(id);
     }
+    @PatchMapping("/{id}/status")
+    public Agendamento atualizarStatus(@PathVariable Long id, @RequestBody String novoStatus) {
+        return service.atualizarStatus(id, novoStatus);
+    }
 }

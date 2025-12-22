@@ -15,18 +15,22 @@ public class AgendamentoService {
     private AgendamentoRepository repository;
 
     public Agendamento salvar(Agendamento agendamento) {
-        if (agendamento.getCliente() == null || agendamento.getCliente().getId() == null) {
-            throw new RuntimeException("Não é possível agendar: Cliente não informado ou inválido.");
-        }
+    if (agendamento.getCliente() == null || agendamento.getCliente().getId() == null) {
+        throw new RuntimeException("Não é possível agendar: Cliente não informado ou inválido.");
+    }
 
-        if (agendamento.getServico() == null || agendamento.getServico().getId() == null) {
-            throw new RuntimeException("Não é possível agendar: Serviço não selecionado.");
-        }
+    if (agendamento.getServico() == null || agendamento.getServico().getId() == null) {
+        throw new RuntimeException("Não é possível agendar: Serviço não selecionado.");
+    }
 
-        if (agendamento.getDataHora() == null || agendamento.getDataHora().isBefore(LocalDateTime.now())) {
-            throw new RuntimeException("Erro: A data do agendamento não pode ser no passado!");
-        }
-
+    if (agendamento.getDataHora() == null || agendamento.getDataHora().isBefore(LocalDateTime.now())) {
+        throw new RuntimeException("Erro: A data do agendamento não pode ser no passado!");
+    }
+    
+    if (repository.existsByDataHora(agendamento.getDataHora())) {
+        throw new RuntimeException("Erro: Este horário já está ocupado por outro cliente!");
+    }
+   
         return repository.save(agendamento);
     }
 
@@ -41,4 +45,13 @@ public class AgendamentoService {
     public List<Agendamento> buscarPorCliente(Long clienteId) {
         return repository.findByClienteId(clienteId);
     }
-}
+
+    public Agendamento atualizarStatus(Long id, String novoStatus) {
+    Agendamento agendamento = repository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Agendamento não encontrado com o ID: " + id));
+
+    agendamento.setStatus(novoStatus.toUpperCase());
+    return repository.save(agendamento);
+     }
+
+   }
