@@ -31,4 +31,14 @@ public class AgendamentoController {
     public Agendamento atualizarStatus(@PathVariable Long id, @RequestBody String novoStatus) {
         return service.atualizarStatus(id, novoStatus);
     }
+        @GetMapping("/pordata")
+    public List<Agendamento> buscarPorData(@RequestParam("data") String dataStr) {
+        java.time.LocalDate data = java.time.LocalDate.parse(dataStr);
+        return service.buscarPorData(data);
+    }
+    @GetMapping("/faturamento")
+    public java.math.BigDecimal getFaturamento() {
+    return service.obterFaturamentoTotal();
+}
+
 }

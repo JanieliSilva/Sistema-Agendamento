@@ -54,4 +54,15 @@ public class AgendamentoService {
     return repository.save(agendamento);
      }
 
+     public List<Agendamento> buscarPorData(java.time.LocalDate data) {
+    java.time.LocalDateTime inicioDoDia = data.atStartOfDay();
+    java.time.LocalDateTime fimDoDia = data.atTime(23, 59, 59);
+    
+    return repository.findByDataHoraBetween(inicioDoDia, fimDoDia);
+    }
+
+    public java.math.BigDecimal obterFaturamentoTotal() {
+    java.math.BigDecimal faturamento = repository.calcularFaturamentoTotal();
+    return faturamento != null ? faturamento : java.math.BigDecimal.ZERO;
+}
    }

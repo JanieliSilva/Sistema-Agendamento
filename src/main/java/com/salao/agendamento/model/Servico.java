@@ -21,4 +21,6 @@ public class Servico {
     private BigDecimal preco;
 
     private Integer duracaoMinutos;
+
+   
 }
