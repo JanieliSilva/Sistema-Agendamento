@@ -3,6 +3,7 @@ package com.salao.agendamento.controller;
 import com.salao.agendamento.model.Agendamento;
 import com.salao.agendamento.service.AgendamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -39,6 +40,17 @@ public class AgendamentoController {
     @GetMapping("/faturamento")
     public java.math.BigDecimal getFaturamento() {
     return service.obterFaturamentoTotal();
+
+}
+
+@GetMapping("/horarios-livres")
+public ResponseEntity<List<java.time.LocalTime>> consultarHorariosLivres(
+        @RequestParam java.time.LocalDate data,
+        @RequestParam Long servicoId) {
+    
+    // Trocado agendamentoService por service
+    List<java.time.LocalTime> livres = service.buscarHorariosLivres(data, servicoId);
+    return ResponseEntity.ok(livres);
 }
 
 }

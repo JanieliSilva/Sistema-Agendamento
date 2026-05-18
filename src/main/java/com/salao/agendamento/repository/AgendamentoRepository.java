@@ -3,17 +3,25 @@ package com.salao.agendamento.repository;
 import com.salao.agendamento.model.Agendamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.query.Param;
 
-import java.util.List;
 import java.time.LocalDateTime;
-@Repository
+import java.math.BigDecimal;
+import java.util.List;
+
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> {
+
+    // Busca todos os agendamentos de um cliente específico
     List<Agendamento> findByClienteId(Long clienteId);
-    boolean existsByDataHora(LocalDateTime dataHora);
-    
-    
-    List<Agendamento> findByDataHoraBetween(LocalDateTime inicio, LocalDateTime fim);
+
+  @Query("SELECT a FROM Agendamento a WHERE a.dataHoraInicio BETWEEN :inicio AND :fim")
+List<Agendamento> findByDataHoraInicioBetween(@Param("inicio") java.time.LocalDateTime inicio, @Param("fim") java.time.LocalDateTime fim);
+
+    // Calcula o faturamento apenas dos serviços já concluídos
     @Query("SELECT SUM(a.servico.preco) FROM Agendamento a WHERE a.status = 'CONCLUIDO'")
-    java.math.BigDecimal calcularFaturamentoTotal();
+    BigDecimal calcularFaturamentoTotal();
+
+    // A nossa query mágica para evitar que um cliente marque no horário do outro
+    @Query("SELECT COUNT(a) > 0 FROM Agendamento a WHERE a.status != 'CANCELADO' AND (:inicio < a.dataHoraFim AND :fim > a.dataHoraInicio)")
+    boolean existeChoqueDeHorario(@Param("inicio") LocalDateTime inicio, @Param("fim") LocalDateTime fim);
 }

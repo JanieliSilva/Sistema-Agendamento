@@ -1,11 +1,9 @@
 package com.salao.agendamento.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import java.math.BigDecimal;
 
 @Entity
-@Data
+@Table(name = "tb_servico")
 public class Servico {
 
     @Id
@@ -15,12 +13,24 @@ public class Servico {
     @Column(nullable = false)
     private String nome;
 
-    private String descricao;
+    private Double preco;
 
+    
     @Column(nullable = false)
-    private BigDecimal preco;
-
     private Integer duracaoMinutos;
 
-   
+    // Construtor vazio obrigatório para o Spring
+    public Servico() {}
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+
+    public Double getPreco() { return preco; }
+    public void setPreco(Double preco) { this.preco = preco; }
+
+    public Integer getDuracaoMinutos() { return duracaoMinutos; }
+    public void setDuracaoMinutos(Integer duracaoMinutos) { this.duracaoMinutos = duracaoMinutos; }
 }
