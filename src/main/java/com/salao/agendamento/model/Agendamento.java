@@ -11,14 +11,12 @@ public class Agendamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Horários de Início e Fim (Cruciais para a regra do salão)
     @Column(nullable = false)
     private LocalDateTime dataHoraInicio;
 
     @Column(nullable = false)
     private LocalDateTime dataHoraFim;
 
-    // Relacionamentos que você adicionou!
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
@@ -27,18 +25,18 @@ public class Agendamento {
     @JoinColumn(name = "servico_id", nullable = false)
     private Servico servico;
 
+    // Empresa é opcional por enquanto (sistema de salão único)
     @ManyToOne
-    @JoinColumn(name = "empresa_id", nullable = false)
+    @JoinColumn(name = "empresa_id", nullable = true)
     private Empresa empresa;
 
     private String observacoes;
-    
-    private String status = "AGENDADO"; // Ex: "PENDENTE", "CONCLUIDO", "CANCELADO"
 
-    // Construtor vazio
+    // Alinhado com o front: "AGENDADO", "CONCLUIDO", "CANCELADO"
+    @Column(nullable = false)
+    private String status = "AGENDADO";
+
     public Agendamento() {}
-
-    // --- GETTERS E SETTERS CORRIGIDOS ---
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
